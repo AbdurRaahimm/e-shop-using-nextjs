@@ -29,4 +29,7 @@ export const {
     useGetProductsByCategoryQuery, 
     useGetCategoriesQuery 
 } = productsApi
+
+export { productsApi };
+export type { Product };
     
