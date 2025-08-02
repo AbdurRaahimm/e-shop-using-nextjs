@@ -12,6 +12,11 @@ The application provides a seamless shopping experience, allowing users to brows
 - Shopping cart functionality (add, remove, view)
 - Fully responsive design
 
+## Live Demo
+
+The live demo of the application is available at [Live Demo/](https://e-shop-using-nextjs.vercel.app/)
+
+
 ## Project Structure
 
 The project follows the standard Next.js App Router structure, which is organized for clarity and scalability.
