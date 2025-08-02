@@ -25,7 +25,7 @@ export default function SuccessPage() {
       <div className="space-y-4">
         <Link
           href="/orders"
-          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+          className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold"
         >
           View Your Orders
         </Link>
