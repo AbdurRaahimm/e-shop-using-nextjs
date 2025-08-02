@@ -4,25 +4,14 @@ import { notFound } from "next/navigation";
 import type { Product } from "@/lib/types";
 import AddToCartButton from "./AddToCartButton";
 
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
-
 async function getProduct(id: string): Promise<Product | null> {
   try {
     const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
       next: { revalidate: 3600 },
     });
-
-    if (!res.ok) {
-      return null;
-    }
-
+    if (!res.ok) return null;
     return res.json();
-  } catch (error) {
-    console.error("Error fetching product:", error);
+  } catch {
     return null;
   }
 }
@@ -34,7 +23,6 @@ async function getAllProducts(): Promise<Product[]> {
 
 export async function generateStaticParams() {
   const products = await getAllProducts();
-
   return products.map((product) => ({
     id: product.id.toString(),
   }));
@@ -42,15 +30,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: ProductPageProps): Promise<Metadata> {
-  const product = await getProduct(params.id);
-
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const product = await getProduct(id);
   if (!product) {
-    return {
-      title: "Product Not Found",
-    };
+    return { title: "Product Not Found" };
   }
-
   return {
     title: `${product.title} - E-Shop`,
     description: product.description,
@@ -62,12 +49,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProduct(params.id);
-
-  if (!product) {
-    notFound();
-  }
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const product = await getProduct(id);
+  if (!product) notFound();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -81,7 +70,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
             priority
           />
         </section>
-
         <section className="space-y-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -91,7 +79,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               {product.category}
             </p>
           </div>
-
           <div className="flex items-center space-x-4">
             <span className="text-4xl font-bold text-green-600">
               ${product.price.toFixed(2)}
@@ -103,7 +90,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </span>
             </div>
           </div>
-
           <div>
             <h2 className="text-lg font-semibold text-gray-900 mb-2">
               Description
@@ -112,7 +98,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               {product.description}
             </p>
           </div>
-
           <AddToCartButton product={product} />
         </section>
       </div>
