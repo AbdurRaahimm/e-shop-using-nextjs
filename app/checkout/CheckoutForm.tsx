@@ -87,7 +87,7 @@ export default function CheckoutForm() {
         <p className="text-gray-600 mb-6">Add some products to your cart to continue</p>
         <button
           onClick={() => router.push("/")}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
         >
           Continue Shopping
         </button>
