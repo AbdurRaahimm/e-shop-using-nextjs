@@ -5,7 +5,12 @@ import type { Product } from "@/lib/types"
 export const metadata: Metadata = {
   title: "Home - E-Shop",
   description: "Browse our collection of high-quality products including electronics, clothing, jewelry and more.",
-}
+  openGraph: {
+    title: "Home - E-Shop",
+    description: "Browse our collection of high-quality products including electronics, clothing, jewelry and more.",
+    images: ["/og-image.png"], // Replace with a specific OG image if you have one
+  },
+};
 
 async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://fakestoreapi.com/products", {
