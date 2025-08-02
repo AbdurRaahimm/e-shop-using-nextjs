@@ -31,10 +31,10 @@ export default function ProductPageClient({ id }: ProductPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <section className="aspect-square relative bg-white rounded-lg shadow-md">
           <Image
-            src={product.image || "/placeholder.svg"}
+            src={product.image}
             alt={product.title}
             fill
-            className="object-contain p-8"
+            className="object-contain p-8 rounded-lg "
             priority
           />
         </section>
